@@ -1,7 +1,7 @@
 <?php
     //loome AB ühenduse
     require_once("../config_global.php");
-    $database = "if15_romil_1";
+    $database = "if15_raunkos";
     
 	//paneme sessiooni serveris toole, saame kasutada SESSIOS[]
 	session_start();
@@ -45,4 +45,35 @@
         $mysqli->close();
         
     }
+	
+	
+	
+    function createCarPlate($plate, $car_color) {
+        
+        $mysqli = new mysqli($GLOBALS["servername"], $GLOBALS["server_username"], $GLOBALS["server_password"], $GLOBALS["database"]);
+        $stmt = $mysqli->prepare("INSERT INTO car_plates (user_id, number_plate, color) VALUES (?,?,?)");
+        // i - on user_id INT
+        $stmt->bind_param("iss", $_SESSION['logged_in_user_id'], $plate, $car_color);
+        
+		$message = "";
+		//Kui onnestub ss toene kui viga ss else
+		if($stmt->execute()) {
+			//onnestus
+			$message = "Edukalt andmebaasi salvestatud";
+		}
+		
+        $stmt->close();
+        
+        $mysqli->close();
+        
+		return $message;
+    }
+	
+	
+	
+	
+	
+	
+	
+	
  ?>
