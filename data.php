@@ -20,7 +20,6 @@
     $car_plate = $color = "";
     $car_plate_error = $color_error = "";
 	$m = "";
-    echo $_SESSION['logged_in_user_id'];
     
     // valideerida välja ja käivita fn
     if($_SERVER["REQUEST_METHOD"] == "POST"){
@@ -63,6 +62,10 @@
         $data = htmlspecialchars($data);
         return $data;
     }
+	
+	//Küsime tabeli kujul andmed
+	getAllData();
+	
 ?>
 
 Tere, <?=$_SESSION['logged_in_user_email'];?> <a href="?logout=1">Logi välja</a>
